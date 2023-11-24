@@ -1,16 +1,13 @@
-import keyboard
-import requests
-import json
+ 
 import openai
 from PIL import Image, ImageDraw, ImageFont, ImageOps
 import textwrap
-import random
+ 
 import os
-import time
+ 
 from bing_image_downloader import downloader
-
-openai.api_key = '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'
-
+mab = input("enter api:")
+openai.api_key = f'{mab}'
 cop = input("enter content:")
 top = input("enter image:")
 num = int(input("num:"))
@@ -97,19 +94,28 @@ for i in range(1, num+1):
         # draw.text((x, y), line, fill='black', font=font, stroke_width=1, stroke_fill='white', align='center')
         y += draw.textsize(line, font=font)[1]
 
-    # Get the news item's title
-    title = f"{top}"
+        import os
+        from IPython.display import Image, display
+        import glob
 
-    # Create a folder to store the images if it doesn't exist
-    if not os.path.exists(title):
-        os.makedirs(title)
+        # Get the news item's title
+        title = f"{top}"
 
-    # Save the image with a unique filename
-    i = 1
-    while True:
-        img_filename = f"{title}/image{i}.png"
-        if not os.path.exists(img_filename):
-            break
-        i += 1
-    new_img.save(img_filename)
-    print(f"Saved image as {img_filename}")
+        # Create a folder to store the images if it doesn't exist
+        if not os.path.exists(title):
+            os.makedirs(title)
+
+        # Save the image with a unique filename
+        i = 1
+        while True:
+            img_filename = f"{title}/image{i}.png"
+            if not os.path.exists(img_filename):
+                break
+            i += 1
+        new_img.save(img_filename)
+        print(f"Saved image as {img_filename}")
+
+        # Display all images in the folder
+        image_files = glob.glob(f"{title}/*.png")
+        for img_file in image_files:
+            display(Image(filename=img_file))
